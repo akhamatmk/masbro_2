@@ -73,7 +73,7 @@ class LoginController extends Controller
          return redirect('home');
 
       if (Auth::attempt($userdata2))
-         return redirect('home');
+         return redirect('home');      
 
       Session::flash('message', 'Wrong email or No telepon or password');
       return redirect('login');
