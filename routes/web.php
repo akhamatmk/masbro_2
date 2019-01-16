@@ -12,9 +12,26 @@
 */
 
 Route::get('backend/admin/login', 'Backend\LoginController@index')->name('login-backend');
+Route::post('backend/admin/login', 'Backend\LoginController@check')->name('login-backend-check');
 
-Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
-    Route::get('/', 'Backend\HomeController@index');
+Route::prefix('backend/admin')->middleware(['auth'])->group(function () {
+    Route::get('/', 'Backend\HomeController@index')->name('admin');
+    Route::get('logout', 'Backend\HomeController@logout')->name('admin-logout');
+    
+    Route::get('profesion/parent', 'Backend\ProfesionController@parent')->name('parent-profesion');
+    Route::get('profesion/parent/add', 'Backend\ProfesionController@parent_add')->name('backend-add-parent-profesion');
+    Route::post('profesion/parent/add', 'Backend\ProfesionController@parent_add_store')->name('backend-add-parent-profesion-store');
+	Route::get('profesion/parent/edit/{id}', 'Backend\ProfesionController@parent_add_edit')->name('backend-add-parent-profesion-edit');
+	Route::post('profesion/parent/edit/{id}', 'Backend\ProfesionController@parent_add_edit_save')->name('backend-add-parent-profesion-edit-store');
+	Route::get('profesion/delete/{id}', 'Backend\ProfesionController@parent_delete')->name('backend-add-parent-profesion-destroy');
+	
+
+	Route::get('profesion/child', 'Backend\ProfesionController@child')->name('child-profesion');
+    Route::get('profesion/child/add', 'Backend\ProfesionController@child_add')->name('backend-add-child-profesion');
+    Route::post('profesion/child/add', 'Backend\ProfesionController@child_add_store')->name('backend-add-child-profesion-store');
+	Route::get('profesion/child/edit/{id}', 'Backend\ProfesionController@child_add_edit')->name('backend-add-child-profesion-edit');
+	Route::post('profesion/child/edit/{id}', 'Backend\ProfesionController@child_add_edit_save')->name('backend-add-child-profesion-edit-store');
+	Route::get('profesion/child/delete/{id}', 'Backend\ProfesionController@child_delete')->name('backend-add-child-profesion-destroy');
 });
 
 Route::get('/', 'HomeController@index')->name('home');

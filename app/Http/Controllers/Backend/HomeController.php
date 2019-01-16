@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,12 @@ class HomeController extends Controller
 
 	public function index()
 	{
-		return view('backend/index');
+		return view('backend/index')->with('user', Auth::user());
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+        return redirect('backend/admin/login');
 	}
 }
