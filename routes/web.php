@@ -14,7 +14,7 @@
 Route::get('backend/admin/login', 'Backend\LoginController@index')->name('login-backend');
 Route::post('backend/admin/login', 'Backend\LoginController@check')->name('login-backend-check');
 
-Route::prefix('backend/admin')->middleware(['auth'])->group(function () {
+Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
     Route::get('/', 'Backend\HomeController@index')->name('admin');
     Route::get('logout', 'Backend\HomeController@logout')->name('admin-logout');
     

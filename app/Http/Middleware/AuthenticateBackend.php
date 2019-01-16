@@ -15,7 +15,7 @@ class AuthenticateBackend extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson() OR Auth::user()->type == 0) {
+        if (! $request->expectsJson()) {
             Auth::logout();
             return route('login-backend');
         }

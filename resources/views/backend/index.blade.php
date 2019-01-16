@@ -5,8 +5,6 @@
 
 <div class="content-wrapper">
     
-
-    a
 </div>
 
 @endsection
