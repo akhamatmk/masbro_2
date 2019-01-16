@@ -9,7 +9,7 @@ use App\Models\CategoryJobs;
 use Session;
 use Auth;
 
-class ProfesionController extends Controller
+class ProfesionController extends BackendController
 {
 	/*
 	|--------------------------------------------------------------------------
