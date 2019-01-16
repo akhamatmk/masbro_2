@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'admin' => \App\Http\Middleware\AuthenticateBackend::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -65,7 +66,7 @@ class Kernel extends HttpKernel
     /**
      * The priority-sorted list of middleware.
      *
-     * This forces non-global middleware to always be in the given order.
+     * This forces the listed middleware to always be in the given order.
      *
      * @var array
      */
