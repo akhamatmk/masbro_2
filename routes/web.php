@@ -36,16 +36,23 @@ Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('timeline', 'HomeController@timeline')->name('timeline');
+
 Route::post('upload/image/gallery', 'UploadImageController@gallery')->middleware('auth');
 
 Route::get('search/school', 'Auth\EducationController@school');
 
+Route::post('search/people/job', 'Auth\UserController@people_job');
 Route::get('profesion/title', 'Auth\UserController@title');
+
+Route::get('location/region', 'LocationController@region');
 
 Route::post('make/post', 'PostController@store')->middleware('auth');
 Route::post('forgot-password', 'Auth\LoginController@forgotPassword');
 Route::get('reset/password/{token}/{email}', 'Auth\LoginController@resetPassword');
 Route::post('reset/password', 'Auth\LoginController@setNewPassword');
+
+
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('login', 'Auth\LoginController@index')->name('login');

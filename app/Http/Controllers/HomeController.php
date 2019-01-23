@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\JobPosting;
 use App\Models\CategoryJobs;
 use App\Models\Province;
+use App\Models\Post;
 use App\Models\Regency;
 use Session;
 
@@ -38,5 +39,11 @@ class HomeController extends Controller
 		->with('regencys', $regencys)
 		->with('menu', 'home')
 		->with('type', $types);
+	}
+
+	public function timeline()
+	{
+		$posts = Post::with('gallery', 'user')->orderBy('created_at', 'DESC')->get();		
+		return view('timeline')->with('posts', $posts)->with('menu', 'timeline');
 	}
 }

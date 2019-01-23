@@ -23,7 +23,7 @@
         <div class="section-full submit-resume content-inner-2" style="padding-top: 35px; padding-bottom: 20px;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-7 col-lg-9" style="padding: 0px; box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);">
+                    <div class="col-md-7 col-lg-9" style="padding: 0px;">
                         @if(Session::has('message-succes'))
                         <div class="alert alert-success" style="margin :10px; margin-top: 30px">
                             <ul>
@@ -31,9 +31,9 @@
                             </ul>
                         </div>
                         @endif
-                        <form method="POST" style="margin-top: 10px" enctype="multipart/form-data">
+                        <form method="POST" style="margin-top: 10px; box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);" enctype="multipart/form-data">
                             @csrf
-                            <ul class="nav nav-tabs" style="margin-top: 30px">
+                            <ul class="nav nav-tabs" style="margin-top: 5px">
                                 <li class="active"><a data-toggle="tab" href="#home">Profile Personal</a></li>
                                 <li ><a data-toggle="tab" href="#menu1">Profile Title</a></li>
                             </ul>
@@ -59,7 +59,7 @@
                                         <label>Biodata</label>
                                         <textarea name="bio" class="form-control" placeholder="Biodata">{{ $user->bio }}</textarea>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group">
                                         <label>profile image</label>									
                                         <!-- <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" width="100px" height="100px" /> -->
                                         <div class="custom-file">

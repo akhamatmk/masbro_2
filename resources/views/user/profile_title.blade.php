@@ -44,7 +44,7 @@
 </style>
 
 <div class="parent-title">
-	<button class="btn" id="add" type="button" style="cursor: pointer;"> Add Profesion</button>
+	<button class="btn btn-primary" id="add" type="button" style="cursor: pointer;"> Add Profesion</button>
 	@if(count($titles) > 0)
 
 		@foreach($titles as $key => $value)
@@ -93,7 +93,7 @@
 
 </div>
 
-@section('js')
+
 <script type="text/javascript">
     function change_value(value, id)
    	{
@@ -119,7 +119,6 @@
 					text : text
 				},
              	success: function(data){
-             		console.log(data);             		
              		$("#myInputautocomplete-list-"+id).html("");
                		$.each(data , function(index, val) { 
   						let temp = '<div class="autocomplete-value" onclick="change_value(\''+val.name+'\', '+id+')">'+val.name+'</div>';
@@ -174,4 +173,3 @@
        	});
     });
 </script>
-@endsection

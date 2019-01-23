@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
@@ -60,6 +61,35 @@ class UserController extends Controller
 		$text = strtolower($request->text);
 		$jobs = CategoryJobs::where('name', 'like', '%'.$text.'%')->limit(10)->get();
 		return response()->json($jobs);
+	}
+
+	public function people_job(Request $request)
+	{
+		$keyword = strtolower($request->keyword);
+		$region = strtolower($request->region);
+		$categoryJobs = CategoryJobs::select('name')
+		->where('name', 'like', '%'.$keyword.'%')
+		->orWhere('meta_search', 'like', '%'.$keyword.'%')
+		->get();
+
+		$regency = Regency::where('name', 'like', '%'.$region.'%')->get();
+
+		$job = [];
+		foreach ($categoryJobs as $key => $value) {
+			$job[] = $value->name;
+		}
+
+		$r = [];
+		foreach ($regency as $key => $value) {
+			$r[] = $value->id;
+		}
+
+		$user = User::whereIn('users.regency_id', $r)
+				->leftJoin('profesional_titles', 'users.id', '=', 'profesional_titles.user_id')
+				->whereIn('profesional_titles.title', $job)
+				->get();
+
+		return view('search_user')->with('users', $user);
 	}
 
 	public function profile_edit()

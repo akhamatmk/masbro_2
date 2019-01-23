@@ -25,12 +25,13 @@ class PostController extends Controller
 
 	public function store(Request $request)
 	{
+		$images = $request->product_images;
 		$post = new Post;
 		$post->post = $request->post;
 		$post->user_id = Auth::user()->id;
 		$post->save();		
 
-		$images = $request->product_images;
+		
 		if(isset($images))
 		{
 			$galleryName = new GalleryName();
@@ -44,7 +45,6 @@ class PostController extends Controller
 					$gallery->gallery_name_id = $galleryName->id;
 					$gallery->post_id = $post->id;
 					$gallery->image = $value;
-					$gallery->folder = $request->name_folder;
 					$gallery->save();
 				}
 			}	
