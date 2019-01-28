@@ -59,7 +59,7 @@ class UserController extends Controller
 	public function title(Request $request)
 	{
 		$text = strtolower($request->text);
-		$jobs = CategoryJobs::where('name', 'like', '%'.$text.'%')->limit(10)->get();
+		$jobs = CategoryJobs::where('name', 'like', '%'.$text.'%')->Orwhere('meta_search', 'like', '%'.$text.'%')->limit(10)->get();
 		return response()->json($jobs);
 	}
 
