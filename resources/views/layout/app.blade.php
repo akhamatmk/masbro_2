@@ -85,7 +85,22 @@
 
     @yield('content')
     <!-- Footer -->
+
+
     <div class="margin-footer hidden-md-up"></div>
+
+    <div class="footer hidden-md-up">
+        <div style="margin-top: 5px">
+            <a href="{{ url('/') }}"><button class="btn menu-footer @if(isset($menu) AND ($menu ==  'home') ) active-menu-btn @endIf"><i class="fa fa-home"></i></button></a>
+            @if (Auth::check())
+                <a href="{{ url('timeline') }}"><button class="btn menu-footer @if(isset($menu) AND ($menu ==  'timeline') ) active-menu-btn @endIf"><i class="fa fa-book"></i></button></a>
+                <button class="btn menu-footer"><i class="fa fa-folder"></i></button>
+                <a href="{{ url('notification') }}"><button class="btn menu-footer @if(isset($menu) AND ($menu ==  'notification') ) active-menu-btn @endIf"><i class="fa fa-bell"></i></button></a>
+                <a href="{{ url('profile/user') }}"><button class="btn menu-footer @if(isset($menu) AND ($menu ==  'profile') ) active-menu-btn @endIf"><i class="fa fa-user"></i></button></a>
+            @endIf
+        </div>        
+    </div>
+
     <div class="footer hidden-md-up">
         <div style="margin-top: 5px">
             <a href="{{ url('/') }}"><button class="btn menu-footer @if(isset($menu) AND ($menu ==  'home') ) active-menu-btn @endIf"><i class="fa fa-home"></i></button></a>

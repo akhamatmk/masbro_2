@@ -8,6 +8,8 @@ use App\Models\CategoryParentJob;
 use App\Models\CategoryJobs;
 use Session;
 use Auth;
+use Excel;
+use App\Imports\CategoryJobsImport;
 
 class ProfesionController extends BackendController
 {
@@ -22,11 +24,24 @@ class ProfesionController extends BackendController
 	|
 	*/
 
+	public function __construct()
+	{		
+	}
+
 	public function parent()
 	{
-		$categorys = CategoryParentJob::get();
-		return view('backend/profesion/parent')->with('user', Auth::user())->with('categorys', $categorys);
+		$categorys = CategoryParentJob::paginate(10);
+		return view('backend/profesion/parent')->with('categorys', $categorys);
 	}
+
+	public function import(Request $request) 
+	{
+		if($request->hasFile('import_file'))
+			Excel::import(new CategoryJobsImport, $request->file('import_file'));
+
+        return redirect('backend/admin/profesion/parent');
+	}
+
 
 	public function parent_add()
 	{
@@ -86,7 +101,7 @@ class ProfesionController extends BackendController
 
 	public function child()
 	{
-		$categorys = CategoryJobs::with(['parent'])->get();
+		$categorys = CategoryJobs::with(['parent'])->paginate(10);
 		return view('backend/profesion/child')->with('categorys', $categorys);
 	}
 

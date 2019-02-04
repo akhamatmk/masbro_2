@@ -30,3 +30,18 @@ function k99_relative_time($date) {
     $delta = ceil(floor($delta / 31));
     	return $delta.' month ago'; 
 }
+
+function buildMenu($array, $class = 'main-tree-menu')
+{
+    echo '<ul class="'.$class.'">';
+    foreach ($array as $item)
+    {
+        echo '<li data-id="'.$item->id.'">';
+        echo $item->name;
+        if (count($item->children))
+            buildMenu($item->children, '');
+
+        echo '</li>';
+    }
+    echo '</ul>';
+}

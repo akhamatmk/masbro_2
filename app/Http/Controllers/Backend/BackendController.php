@@ -7,5 +7,4 @@ use Auth;
 
 class BackendController extends Controller
 {
-
 }

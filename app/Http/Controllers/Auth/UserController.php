@@ -14,6 +14,8 @@ use App\Models\Experience;
 use App\Models\Post;
 use App\Models\Gallery;
 use App\Models\CategoryJobs;
+use App\Models\FilterUserValue;
+use App\Models\FilterUser;
 use Illuminate\Support\Facades\File;
 use App\Models\UserDocument;
 use App\Models\ProfesionalTitle;
@@ -99,12 +101,16 @@ class UserController extends Controller
 		$province = Province::get();
 		$regency = Regency::where('province_id', $user->province_id)->get();
 		$district = District::where('regency_id', $user->regency_id)->get();
+		$filters = FilterUserValue::where('user_id', $user->id)->get();
+		$parent_filters = FilterUser::where('parent_id', 0)->get();
 		return view('user/edit_profile')
 			->with('user', $user)
 			->with('provinces', $province)
 			->with('regencys', $regency)
 			->with('titles', $profesionalTitle)
 			->with('menu', 'profile')
+			->with('parent_filters', $parent_filters)
+			->with('filters', $filters)
 			->with('districts', $district);
 	}
 
@@ -124,7 +130,6 @@ class UserController extends Controller
 		$user->longitude = $request->long;
 		$user->latitude = $request->lat;
 		$user->save();
-
 
 		DB::table('profesional_titles')->where('user_id', $user->id)->delete();
 		foreach ($request->title as $key => $value) {
@@ -154,6 +159,21 @@ class UserController extends Controller
 				$TitleJob = new TitleJob;
 				$TitleJob->name = $value;
 				$TitleJob->save();
+			}
+		}
+		
+		DB::table('filter_user_values')->where('user_id', $user->id)->delete();
+
+		$user_filter = $request->parent_filter_user;
+		if(isset($user_filter) AND count($user_filter) > 0)
+		{
+			foreach ($user_filter as $key => $value) {
+				$FilterUserValue = new FilterUserValue;
+				$FilterUserValue->user_id = $user->id;
+				$FilterUserValue->filter_1 = $value;
+				$FilterUserValue->filter_2 = $request->filter_2[$key];
+				$FilterUserValue->filter_3 = isset($_GET['filter_2'][$key]) ? $_GET['filter_2'][$key] : 0;
+				$FilterUserValue->save();
 			}
 		}
 

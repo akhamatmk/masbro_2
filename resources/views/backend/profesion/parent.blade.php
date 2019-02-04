@@ -7,6 +7,11 @@
         <div class="card-body">
             <h4 class="card-title">Parent Profesion </h4>
             <a class="btn btn-inverse-primary btn-fw" href="{{ route('backend-add-parent-profesion') }}">Add</a>
+            <form  style=" border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <input type="file" name="import_file" />
+                <button class="btn btn-primary">Import File</button>
+            </form><br>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -19,6 +24,9 @@
                             </th>
                             <th>
                                 Meta Search
+                            </th>
+                            <th>
+                                Action
                             </th>
                         </tr>
                     </thead>
@@ -41,7 +49,8 @@
                         </tr>
                         @endForeach
                     </tbody>
-                </table>
+                </table><br/>
+                {{ $categorys->links() }}
             </div>
         </div>
     </div>

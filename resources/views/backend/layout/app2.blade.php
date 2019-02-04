@@ -96,7 +96,7 @@
                             <i class="menu-icon mdi mdi-television"></i>
                             <span class="menu-title">Dashboard</span>
                             </a>
-                        </li>                        
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                             <i class="menu-icon mdi mdi-restart"></i>
@@ -114,6 +114,32 @@
                                 </ul>
                             </div>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('filter-user') }}">
+                                <i class="menu-icon mdi mdi-backup-restore"></i>
+                                <span class="menu-title">Filter User</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#place" aria-expanded="false" aria-controls="place">
+                            <i class="menu-icon mdi mdi-restart"></i>
+                            <span class="menu-title">Place</span>
+                            <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="place">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('backend-regency') }}"> Rengency </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('backend-district') }}"> District </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                     </ul>
                 </nav>
                 <div class="main-panel">

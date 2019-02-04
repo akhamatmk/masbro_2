@@ -36,6 +36,7 @@
                             <ul class="nav nav-tabs" style="margin-top: 5px">
                                 <li class="active"><a data-toggle="tab" href="#home">Profile Personal</a></li>
                                 <li ><a data-toggle="tab" href="#menu1">Profile Title</a></li>
+                                <li ><a data-toggle="tab" href="#menu2">User Filter</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="home" class="tab-pane fade in active">
@@ -125,6 +126,10 @@
                                 </div>
                                 <div id="menu1" class="tab-pane fade">
                                 	@include('user/profile_title')
+                                </div>
+
+                                <div id="menu2" class="tab-pane fade">
+                                    @include('user/filter')
                                 </div>
                             </div>
 

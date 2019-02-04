@@ -11,6 +11,13 @@
 |
 */
 
+Route::post('importExcel', 'Backend\ProfesionController@import');
+Route::post('filter/get_node', 'Backend\FilterController@node');
+Route::get('filter/user', 'FilterController@getParent');
+Route::get('filter/child/{child}', 'FilterController@getChild');
+
+
+
 Route::get('backend/admin/login', 'Backend\LoginController@index')->name('login-backend');
 Route::post('backend/admin/login', 'Backend\LoginController@check')->name('login-backend-check');
 
@@ -18,13 +25,21 @@ Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
     Route::get('/', 'Backend\HomeController@index')->name('admin');
     Route::get('logout', 'Backend\HomeController@logout')->name('admin-logout');
     
+	Route::get('filter/user', 'Backend\FilterController@index')->name('filter-user');
+	Route::get('filter/edit/node/{id}', 'Backend\FilterController@edit');
+	Route::get('filter/destroy/node/{id}', 'Backend\FilterController@destroy');
+	Route::get('filter/add/node', 'Backend\FilterController@add');
+
     Route::get('profesion/parent', 'Backend\ProfesionController@parent')->name('parent-profesion');
     Route::get('profesion/parent/add', 'Backend\ProfesionController@parent_add')->name('backend-add-parent-profesion');
     Route::post('profesion/parent/add', 'Backend\ProfesionController@parent_add_store')->name('backend-add-parent-profesion-store');
 	Route::get('profesion/parent/edit/{id}', 'Backend\ProfesionController@parent_add_edit')->name('backend-add-parent-profesion-edit');
 	Route::post('profesion/parent/edit/{id}', 'Backend\ProfesionController@parent_add_edit_save')->name('backend-add-parent-profesion-edit-store');
 	Route::get('profesion/delete/{id}', 'Backend\ProfesionController@parent_delete')->name('backend-add-parent-profesion-destroy');
-	
+
+	Route::get('regency', 'Backend\RegencyController@index')->name('backend-regency');
+	Route::get('district', 'Backend\RegencyController@district')->name('backend-district');
+	Route::get('regency/{id}/{status}', 'Backend\RegencyController@change_status');
 
 	Route::get('profesion/child', 'Backend\ProfesionController@child')->name('child-profesion');
     Route::get('profesion/child/add', 'Backend\ProfesionController@child_add')->name('backend-add-child-profesion');
