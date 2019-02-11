@@ -43,7 +43,7 @@ class HomeController extends Controller
 
 	public function timeline()
 	{
-		$posts = Post::with('gallery', 'user')->orderBy('created_at', 'DESC')->get();		
+		$posts = Post::with('gallery', 'user')->orderBy('created_at', 'DESC')->get();
 		return view('timeline')->with('posts', $posts)->with('menu', 'timeline');
 	}
 }

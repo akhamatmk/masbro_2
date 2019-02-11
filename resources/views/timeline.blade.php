@@ -180,6 +180,38 @@
     top: 8px;
     width: 32px;
 }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 </style>
 
 <div class="content-block">
@@ -195,30 +227,52 @@
                         <img class="pp" src="{{ asset('images/profile-picture-user/'.$post->user->profile_image) }}">
                         {{ $post->user->name }}
                     </p>
-                    <!-- <div class="row">
-                        @if(count($post->gallery) > 0)
-                            @foreach($post->gallery as $key => $value)
-                                <div class="column" >
-                                    <div class="container-user">                                        
-                                        <img style="height: 100px; width: -webkit-fill-available;" src="{{ url('storage/gallery/'.$value->image) }}">
-                                    </div>      
-                                </div>
-                            @endForeach
-                        @endIf
-                    </div> -->
                   </div>
                </div>
                <div class="blog-body">
                   <div class="blog-summary">
                      <p style="text-align: justify;">{{ $post->post }}</p>
+                     <div class="clearfix" style="margin: 10px">
+                        @foreach($post->gallery as $key => $value)                        
+                           @if($key == 0)
+                              <div style="width: 45%; float: left">
+                                 <img height="150px" src="{{ url('storage/gallery/'.$value->image) }}">
+                              </div>
+                           
+                           @elseIf($key == 1)
+                              <div style="width: 45%; float: right;">
+                                 <img height="150px" src="{{ url('storage/gallery/'.$value->image) }}">
+                              </div>
+                           @endIf
+
+                        @endForeach
+                     </div>
                   </div>
                   <div class="blog-tags">
                      <ul>
                         <li><a href="#">Like</a></li>
-                        <li><a href="#">Comment</a></li>
                         <li><a href="#">Share</a></li>
                      </ul>
+                     <textarea class="form-control"></textarea>
+                     <button style="margin-top: 2px" class="btn btn-primary"> Comment</button>
                   </div>
+
+                  <div class="blog-comment">
+                     <div class="blog-author--no-cover">                    
+                        <p style="font-size: 12px">
+                           <div class="clearfix">
+                              <div style="width: 10%; float: left">
+                                 <img class="pp" src="{{ asset('images/profile-picture-user/'.$post->user->profile_image) }}">
+                              </div>
+
+                              <div style="width: 88%; float: right;">
+                                 <span>{{ $post->user->name }}</span> sadasdsasad asd asd asdsadsad sad sad sad asd asd asdasd asdasd
+                              </div>
+                           </div>                           
+                       </p>
+                     </div>
+                  </div>
+
                </div>
             </div>
             @endForeach
