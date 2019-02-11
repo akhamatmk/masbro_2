@@ -48,10 +48,10 @@
                                         <label>Last Name</label>
                                         <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" placeholder="Your Last Name">
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label>User Id</label>
                                         <input type="text" name="user_id" class="form-control" value="{{ $user->user_id }}" placeholder="">
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label>No Telepon</label>
                                         <input type="text" name="phone" value="{{ $user->phone }}" class="form-control" placeholder="0821">

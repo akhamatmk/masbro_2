@@ -119,7 +119,7 @@ class UserController extends Controller
 		$user = Auth::user();
 		$user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
-		$user->user_id = $request->user_id;
+		//$user->user_id = $request->user_id;
 		$user->profession = $request->profession;
 		$user->bio = $request->bio;
 		$user->province_id = $request->province_id;
