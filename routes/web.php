@@ -15,6 +15,8 @@ Route::post('importExcel', 'Backend\ProfesionController@import');
 Route::post('filter/get_node', 'Backend\FilterController@node');
 Route::get('filter/user', 'FilterController@getParent');
 Route::get('filter/child/{child}', 'FilterController@getChild');
+Route::post('comment/insert', 'CommentController@insert')->middleware('auth');
+Route::post('like/post', 'CommentController@like')->middleware('auth');
 
 Route::get('backend/admin/login', 'Backend\LoginController@index')->name('login-backend');
 Route::post('backend/admin/login', 'Backend\LoginController@check')->name('login-backend-check');

@@ -94,7 +94,7 @@
          </div>
       </div>
    </div>
-   <div class="row" style="margin-top: 10px">
+   <div class="row" style="margin-top: 10px; display: none">
       <div class="col-sm-8 col-12 main-section">
          <form action="{{ url('make/post') }}" method="POST" style="margin: 10px">
             @csrf
@@ -320,8 +320,7 @@
         @if(Session::has('succes'))
           swal("Good job!", "Create Post Succes!", "success");
         @endIf
-    
-        $('.dropify').dropify();
+  
    
         $(".upload").click(function(){
            $("#myModal").modal('show');

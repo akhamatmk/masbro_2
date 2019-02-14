@@ -8,6 +8,7 @@ use App\Models\CategoryJobs;
 use App\Models\Province;
 use App\Models\Post;
 use App\Models\Regency;
+use Auth;
 use Session;
 
 class HomeController extends Controller
@@ -43,7 +44,7 @@ class HomeController extends Controller
 
 	public function timeline()
 	{
-		$posts = Post::with('gallery', 'user')->orderBy('created_at', 'DESC')->get();
-		return view('timeline')->with('posts', $posts)->with('menu', 'timeline');
+		$posts = Post::with('gallery', 'user', 'comment')->orderBy('created_at', 'DESC')->get();
+		return view('timeline')->with('posts', $posts)->with('menu', 'timeline')->with('user', Auth::user());
 	}
 }

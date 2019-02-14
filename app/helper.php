@@ -45,3 +45,12 @@ function buildMenu($array, $class = 'main-tree-menu')
     }
     echo '</ul>';
 }
+
+function checkLike($user_id, $post_id)
+{
+    $like = App\Models\PostLike::where('user_id', $user_id)->where('post_id', $post_id)->first();
+    if($like)
+        return $like->type;
+
+    return 0;
+}

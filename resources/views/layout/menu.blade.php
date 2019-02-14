@@ -64,6 +64,12 @@
                   <li>
                      <a href="{{ url('profile/user') }}">Profile <i class="fa"></i></a>
                   </li>
+                  <li>
+                     <a href="#">Sosmed <i class="fa fa-chevron-down"></i></a>
+                     <ul class="sub-menu">
+                        <li><a href="{{ url('timeline') }}" class="dez-page">Timeline</a></li>
+                     </ul>
+                  </li>
                   @else
                   <li><a href="{{ route('register') }}">Sign Up <i class="fa"></i></a></li>
                   <li><a href="{{ route('login') }}">Login <i class="fa"></i></a></li>

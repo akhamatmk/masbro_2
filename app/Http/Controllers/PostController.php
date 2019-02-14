@@ -51,6 +51,6 @@ class PostController extends Controller
 		}
 		
 		Session::flash('succes', 'Succes Create Post'); 
-		return redirect('profile/user');
+		return redirect('timeline');
 	}
 }

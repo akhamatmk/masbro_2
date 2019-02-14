@@ -212,12 +212,58 @@
   clear: both;
   display: table;
 }
-</style>
 
+.comment_field{
+  font-size: 12px
+}
+
+.pp_comment{
+  width: 10%; float: left
+}
+
+.text_comment{
+  width: 88%; float: right;
+}
+
+.active{
+    color : #0275d8 !important;
+    font-weight: 900 !important;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}">
 <div class="content-block">
    <!-- Submit Resume -->
    <div class="section-full">
       <div class="container">
+
+        <div class="row" style="    background: #fff;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 4px 2px -2px;
+    font-family: "adelle-sans", sans-serif;
+    font-weight: 100;
+    margin: 5px auto;
+    width: 20rem;">
+          <div class="col-sm-12 col-12 main-section">
+             <form action="{{ url('make/post') }}" method="POST" style="margin: 10px">
+                @csrf
+                <h4><u>Make Your Post ?</u></h4>
+                <div class="form-group col-md-12">
+                   <textarea class="form-control" name="post" rows="6" placeholder="Describe your post"></textarea>  
+                </div>
+                <div class="form-group col-md-12">
+                   <div id="dropzone" class="dropzone"></div>
+                </div>
+                <div class="form-group col-md-12 clearfix">
+                   <div style="float: right;">
+                      <button class="btn btn-primary">Post</button>
+                   </div>
+                </div>
+                <div id="product-image"></div>
+             </form>
+          </div>
+       </div>
+
          <div class="row" style=" min-height: 450px;padding-bottom: 10px; margin-bottom: 82px;">
             @foreach($posts as $key => $post)
             <div class="blog-container">
@@ -250,26 +296,36 @@
                   </div>
                   <div class="blog-tags">
                      <ul>
-                        <li><a href="#">Like</a></li>
+                        <li>                            
+                            <?php 
+                                if(checkLike($user->id,  $post->id) == 1)
+                                    echo '<a style="curson : pointer" id="like_post_'.$post->id.'" data-id="'.$post->id.'" class="active like-btn" >Like</a>';
+                                else
+                                    echo '<a style="curson : pointer" id="like_post_'.$post->id.'" data-id="'.$post->id.'" class="like-btn">Like</a>';
+                            ?>
+                        </li>
                         <li><a href="#">Share</a></li>
                      </ul>
-                     <textarea class="form-control"></textarea>
-                     <button style="margin-top: 2px" class="btn btn-primary"> Comment</button>
+                     <textarea class="form-control" id="form_textrarea_{{ $post->id }}"></textarea>
+                     <button style="margin-top: 2px; margin-bottom: 10px" data-id="{{ $post->id }}" class="btn btn-primary submit-commit"> Comment</button>
                   </div>
 
                   <div class="blog-comment">
-                     <div class="blog-author--no-cover">                    
-                        <p style="font-size: 12px">
+                     <div class="blog-author--no-cover">
+                        <div id="post-comment-{{ $post->id }}"></div>
+                        @foreach($post->comment as $comment)
+                        <p class="comment_field">
                            <div class="clearfix">
-                              <div style="width: 10%; float: left">
-                                 <img class="pp" src="{{ asset('images/profile-picture-user/'.$post->user->profile_image) }}">
+                              <div class="pp_comment">
+                                 <img class="pp" src="{{ asset('images/profile-picture-user/'.$comment->user->profile_image) }}">
                               </div>
 
-                              <div style="width: 88%; float: right;">
-                                 <span>{{ $post->user->name }}</span> sadasdsasad asd asd asdsadsad sad sad sad asd asd asdasd asdasd
+                              <div class="text_comment">
+                                 <span>{{ $comment->user->name }}</span> {{ $comment->text }}
                               </div>
                            </div>                           
                        </p>
+                       @endForeach
                      </div>
                   </div>
 
@@ -281,3 +337,78 @@
    </div>
 </div>
 @endsection
+
+@section('js')
+<script src="{{ asset('js/dropzone.js') }}"></script>
+<script type="text/javascript">
+Dropzone.autoDiscover = false;
+  $(function() {    
+    $(".like-btn").click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: '{{ URL::to("like/post") }}',
+            data:{
+                "post_id" : id,
+                "_token": "{{ csrf_token() }}"
+            },
+            dataType: 'json',
+            success: function(data){
+                if(data == 1){
+                    $( "#like_post_"+id ).addClass( "active" );
+                }
+                else
+                    $( "#like_post_"+id ).removeClass( "active" );
+            
+            }
+        });
+    });
+
+
+    $("#dropzone").dropzone({ 
+               url: "{{ URL('upload/image/gallery') }}",
+               //dictDefaultMessage: "your custom message",
+               init: function () {
+         this.on('success', function (file) {                    
+             $(".dz-preview:last-child").attr('id', "document-" +file.upload.uuid);
+             var value_image = $("#"+file.upload.uuid).val();             
+         })
+       },
+               maxFiles: 5,
+               paramName: "image", 
+               addRemoveLinks: true,
+               sending: function(file, xhr, formData) {
+             formData.append("_token", "{{ csrf_token() }}");
+       },
+       removedfile: function(file) {
+           $("#"+file.upload.uuid).remove();
+           file.previewElement.remove();
+         },
+       success: function (file, response) {
+         $("#product-image").append($("<input id='"+file.upload.uuid+"' value='"+response+"' type='hidden' name='product_images[]' >"));
+               }
+           });
+
+
+    $(".submit-commit").click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: '{{ URL::to("comment/insert") }}',
+            data:{
+                "post_id" : id,
+                "text" : $("#form_textrarea_"+id).val(),
+                "_token": "{{ csrf_token() }}"
+            },
+            dataType: 'json',
+            success: function(data){
+                $( "#post-comment-"+id ).after( '<p class="comment_field"><div class="clearfix"><div class="pp_comment"><img class="pp" src="{{ asset('images/profile-picture-user/') }}/'+data.user.profile_image+'"></div><div class="text_comment"><span>'+data.user.name+'</span> '+data.text+'</div></div></p>');
+
+                $("#form_textrarea_"+id).val("");
+
+            }
+        });
+    });
+  });
+</script>
+@endSection
