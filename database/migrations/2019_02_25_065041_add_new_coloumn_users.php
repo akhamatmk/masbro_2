@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColoumnInUsers extends Migration
+class AddNewColoumnUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColoumnInUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            
+            $table->boolean('religion')->default(0)->after('phone');
+            $table->string('tribe')->nullable()->after('religion');
         });
     }
 
@@ -25,6 +26,8 @@ class AddColoumnInUsers extends Migration
      */
     public function down()
     {
-
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"></script>    
+
 <style type="text/css">
     .section-full:last-child{
     margin-bottom: 0;
@@ -17,6 +19,48 @@
     background: #fff;
     }
 </style>
+
+<style type="text/css">
+    .section-full:last-child {
+    margin-bottom: 0px;
+    }
+    /*the container must be positioned relative:*/
+    .autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    }
+    .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    }
+    .autocomplete-items div {
+    padding: 10px;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+    }
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+    background-color: #e9e9e9; 
+    }
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+    background-color: DodgerBlue !important; 
+    color: #ffffff; 
+    }
+
+    .autocomplete-value{
+        cursor: pointer;
+    }
+</style>
+
 <div class="content-block">
     <div class="content-block">
         <!-- Submit Resume -->
@@ -44,25 +88,57 @@
                                         <label>First Name</label>
                                         <input type="text" name="first_name" value="{{ $user->first_name }}" class="form-control" placeholder="Your First Name">
                                     </div>
+
                                     <div class="form-group">
                                         <label>Last Name</label>
                                         <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" placeholder="Your Last Name">
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <label>User Id</label>
-                                        <input type="text" name="user_id" class="form-control" value="{{ $user->user_id }}" placeholder="">
-                                    </div> -->
+
+                                    <div class="form-group">
+                                        <label>Gender</label><br/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" @if($user->gender == 1) checked="checked" @endIf type="radio" name="gender" id="inlineRadio1" value="1">
+                                            <label class="form-check-label" for="inlineRadio1">Pria</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" @if($user->gender == 2) checked="checked" @endIf type="radio" name="gender" id="inlineRadio2" value="2">
+                                            <label class="form-check-label" for="inlineRadio2">Wanita</label>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label>No Telepon</label>
                                         <input type="text" name="phone" value="{{ $user->phone }}" class="form-control" placeholder="0821">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Agama</label>
+                                        <select name="religion" id="religion">
+                                            @foreach($religion as $key => $religion)
+                                            @php $select=""; @endphp
+                                            @if($key == $user->religion)
+                                            @php $select='selected="selected"'; @endphp
+                                            @endIf
+                                            <option {{ $select}} value="{{ $key }}">{{ $religion }}</option>
+                                            @endForeach
+                                        </select>                                    
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Suku</label>
+                                        <div class="autocomplete" >
+                                            <input id="tribe" type="text" name="tribe" autocomplete="off" class="form-control tribe" placeholder="Suku" value="{{ $user->tribe }}">
+                                            <div id="list-tribe" class="autocomplete-items"></div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label>Biodata</label>
                                         <textarea name="bio" class="form-control" placeholder="Biodata">{{ $user->bio }}</textarea>
                                     </div>
+
                                     <div class="form-group">
                                         <label>profile image</label>									
-                                        <!-- <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" width="100px" height="100px" /> -->
                                         <div class="custom-file">
                                             <input type="file" name="profile_image" class="dropify" id="customFile" data-default-file="{{ asset('images/profile-picture-user/'.$user->profile_image) }}">
                                         </div>
@@ -165,6 +241,44 @@
 </div>
 @endsection
 @section('js')
+
+<script type="text/javascript">
+    function cv(value)
+    {
+        $("#tribe").val(value);
+        $("#list-tribe").html("");        
+    }
+
+    $(function() {
+        $("#list-tribe").html("");
+        $("#tribe").keyup(function(){
+            let text = $(this).val();
+            if(text.length == 0)
+            {
+                $("#list-tribe").html("");
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: '{{ URL::to("tribes") }}',
+                    dataType: 'json',
+                    data: {
+                        text : text
+                    },
+                    success: function(data){
+                        $("#list-tribe").html("");
+                        $.each(data , function(index, val) { 
+                            let temp = '<div class="autocomplete-value" onclick="cv(\''+val.name+'\')">'+val.name+'</div>';
+                            $("#list-tribe").append(temp);
+                        });                 
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+
 <script type="text/javascript">
     var marker;
     var map;

@@ -3,6 +3,28 @@
 @section('title', 'Profile')
 
 @section('content')
+
+<style type="text/css">
+    .job-categories-new { 
+        background: #f9f8f8;
+        overflow: hidden; 
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .job-categories-new span{
+        width: 30%;
+        margin-left: 10px;
+    }
+    
+    .job-categories-new span .btm-link-category {
+        display:table;
+        font-size: 12px;
+        margin:0 auto;        
+        padding: 10px;
+    }
+</style>
+
 <div id="loading-area"></div>
 <!-- Content -->
     <div class="page-content">
@@ -10,7 +32,7 @@
         <!-- About Us -->
         <div class="section-full job-categories content-inner-2 bg-white">
             <div class="container">
-                <div class="section-head d-flex head-counter clearfix">
+                <div class="section-head d-flex head-counter hidden-sm-down clearfix">
                     <div class="mr-auto">
                         <h2 class="m-b5">Popular Categories</h2>
                         <h6 class="fw3">20+ Catetories work wating for you</h6>
@@ -29,8 +51,53 @@
                     </div>
                 </div>
 
+                <div class="row job-categories-new hidden-md-up" style="margin-top: -30px; padding-top: 20px; padding-bottom: 20px">
+                    <div class="row" style="width: 100%">
+                        <h3 style="padding: 20px; margin-left: 20px">Job Category</h3>
+                    </div>
+                    <span>
+                        <a href="{{ url('job/all')."?category=Coorperate eksekutif Chef" }}">
+                            <img src="https://www.justchefs.com/wp-content/themes/just-chefs-v3/images/callout-icon-chefs.png">
+                        </a>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Coorperate eksekutif Chef" }}" >Coorperate eksekutif Chef</a>                        
+                    </span>
 
-                <div class="row sp20">
+                    <span>
+                        <img src="https://www.justchefs.com/wp-content/themes/just-chefs-v3/images/callout-icon-clients-2.png">
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Coorperate eksekutif Chef" }}" >Regional eksekutif Chef</a>
+                    </span>
+
+                    <span>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Kepala Juru Masak" }}" >
+                            <img src="https://www.justchefs.com/wp-content/themes/just-chefs-v3/images/callout-icon-register.png">
+                        </a>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Kepala Juru Masak" }}" >Kepala Juru Masak</a>
+                    </span>
+
+                    <span>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Traine" }}" >
+                            <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/trainee-768616.png">
+                        </a>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Traine" }}" >Traine</a>
+                    </span>
+
+                    <span>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Penulis Kuliner" }}" >
+                            <img style="height: 92px" height="112px" src="https://cdn3.iconfinder.com/data/icons/content-8/112/16_-content_writer-female-african-american-512.png">
+                        </a>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Penulis Kuliner" }}" >Penulis Kuliner</a>
+                    </span>
+
+                    <span>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Drafter" }}" >
+                            <img src="https://icon2.kisspng.com/20181113/ssg/kisspng-logo-product-design-brand-font-5beaf3f6816d49.0785906515421245345301.jpg">
+                        </a>
+                        <a class="btm-link-category" href="{{ url('job/all')."?category=Drafter" }}" >Drafter</a>
+                    </span>
+
+                </div>
+
+                <div class="row sp20 hidden-sm-down">
                     @foreach($categorys as $category)
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="icon-bx-wraper">

@@ -113,21 +113,26 @@
             }
 
             $("#primary-title-"+id).val(text);
-            $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-                data: {
-                    text : text
-                },
-                success: function(data){
-                    $("#myInputautocomplete-list-"+id).html("");
-                    $.each(data , function(index, val) { 
-                        let temp = '<div class="autocomplete-value" onclick="change_value(\''+capitalize(val.name)+'\', '+id+')">'+capitalize(val.name)+'</div>';
-                        $("#myInputautocomplete-list-"+id).append(temp);
-                    });                 
-                }
-            });             
+            if(text.length == 0)
+            {
+                $("#myInputautocomplete-list-"+id).html("");
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                        text : text
+                    },
+                    success: function(data){
+                        $("#myInputautocomplete-list-"+id).html("");
+                        $.each(data , function(index, val) { 
+                            let temp = '<div class="autocomplete-value" onclick="change_value(\''+capitalize(val.name)+'\', '+id+')">'+capitalize(val.name)+'</div>';
+                            $("#myInputautocomplete-list-"+id).append(temp);
+                        });
+                    }
+                });
+            }            
         });
 
         $(".show_hidden").click(function(){

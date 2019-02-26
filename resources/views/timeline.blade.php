@@ -244,7 +244,7 @@
     font-weight: 100;
     margin: 5px auto;
     width: 20rem;">
-          <div class="col-sm-12 col-12 main-section">
+          <div class="col-sm-8 col-12 main-section">
              <form action="{{ url('make/post') }}" method="POST" style="margin: 10px">
                 @csrf
                 <h4><u>Make Your Post ?</u></h4>

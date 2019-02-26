@@ -111,21 +111,26 @@
    			let text = $(this).val();
    			let id = $(this).data('id');
    			$("#primary-title-"+id).val(text);
-           	$.ajax({
-				type: "GET",
-				url: '{{ URL::to("profesion/title") }}',
-				dataType: 'json',
-				data: {
-					text : text
-				},
-             	success: function(data){
-             		$("#myInputautocomplete-list-"+id).html("");
-               		$.each(data , function(index, val) { 
-  						let temp = '<div class="autocomplete-value" onclick="change_value(\''+val.name+'\', '+id+')">'+val.name+'</div>';
-  						$("#myInputautocomplete-list-"+id).append(temp);
-					});					
-             	}
-           	});           	
+   			if(text.length == 0)
+   			{	
+   				$("#myInputautocomplete-list-"+id).html("");
+   			} else {
+   				$.ajax({
+					type: "GET",
+					url: '{{ URL::to("profesion/title") }}',
+					dataType: 'json',
+					data: {
+						text : text
+					},
+	             	success: function(data){
+	             		$("#myInputautocomplete-list-"+id).html("");
+	               		$.each(data , function(index, val) { 
+	  						let temp = '<div class="autocomplete-value" onclick="change_value(\''+val.name+'\', '+id+')">'+val.name+'</div>';
+	  						$("#myInputautocomplete-list-"+id).append(temp);
+						});
+	             	}
+	           	});
+   			}           	
        	});
 
        	$(".show_hidden").click(function(){
@@ -144,21 +149,26 @@
 	   			let text = $(this).val();
 	   			let id = $(this).data('id');
 	   			$("#primary-title-"+id).val(text);
-	           	$.ajax({
-					type: "GET",
-					url: '{{ URL::to("profesion/title") }}',
-					dataType: 'json',
-					data: {
-						text : text
-					},
-	             	success: function(data){
-	             		$("#myInputautocomplete-list-"+id).html("");
-	               		$.each(data , function(index, val) { 
-	  						let temp = '<div class="autocomplete-value" onclick="change_value(\''+val.name+'\', '+id+')">'+val.name+'</div>';
-	  						$("#myInputautocomplete-list-"+id).append(temp);
-						});					
-	             	}
-	           	});           	
+	   			if(text.length == 0)
+	   			{	
+	   				$("#myInputautocomplete-list-"+id).html("");
+	   			} else { 
+	   				$.ajax({
+						type: "GET",
+						url: '{{ URL::to("profesion/title") }}',
+						dataType: 'json',
+						data: {
+							text : text
+						},
+		             	success: function(data){
+		             		$("#myInputautocomplete-list-"+id).html("");
+		               		$.each(data , function(index, val) {
+		  						let temp = '<div class="autocomplete-value" onclick="change_value(\''+val.name+'\', '+id+')">'+val.name+'</div>';
+		  						$("#myInputautocomplete-list-"+id).append(temp);
+							});
+		             	}
+		           	});
+	   			}	           	
 	       	});
 
 	       	$(".show_hidden").click(function(){

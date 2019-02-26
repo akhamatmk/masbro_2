@@ -13,6 +13,7 @@ use App\Models\EducationUser;
 use App\Models\Experience;
 use App\Models\Post;
 use App\Models\Gallery;
+use App\Models\Tribe;
 use App\Models\CategoryJobs;
 use App\Models\FilterUserValue;
 use App\Models\FilterUser;
@@ -45,6 +46,9 @@ class UserController extends Controller
 		$userDocuments = UserDocument::where('user_id', $user->id)->get();
 		$posts = Post::where('user_id', $user->id)->with('gallery')->orderBy('created_at', 'DESC')->get();
 		$month = ['', 'January', 'February', 'Maret', 'April', 'Mei', 'Juni', 'July', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
+
 		$gallery = Gallery::where('user_id', $user->id)->limit(12)->get();
 
 		return view('user/profile')
@@ -54,7 +58,7 @@ class UserController extends Controller
 		->with('month', $month )
 		->with('menu', 'profile')
 		->with('posts', $posts)
-		->with('gallery', $gallery)
+		->with('gallery', $gallery)		
 		->with('experiences', $experiences );
 	}
 
@@ -65,11 +69,11 @@ class UserController extends Controller
 		return response()->json($jobs);
 	}
 
-	public function people_job(Request $request)
+	public function ajax_search_people(Request $request)
 	{
 		$keyword = strtolower($request->keyword);
 		$region = strtolower($request->region);
-		$categoryJobs = CategoryJobs::select('name')
+		$categoryJobs = CategoryJobs::select('name')		
 		->where('name', 'like', '%'.$keyword.'%')
 		->orWhere('meta_search', 'like', '%'.$keyword.'%')
 		->get();
@@ -91,7 +95,38 @@ class UserController extends Controller
 				->whereIn('profesional_titles.title', $job)
 				->get();
 
-		return view('search_user')->with('users', $user);
+    	$html = view('ajax_search_people')->with(['users' => $user])->render();
+        return response()->json(['html' => $html]);
+	}
+
+	public function people_job(Request $request)
+	{
+		$keyword = strtolower($request->keyword);
+		$region = strtolower($request->region);
+		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
+		$categoryJobs = CategoryJobs::select('name')		
+		->where('name', 'like', '%'.$keyword.'%')
+		->orWhere('meta_search', 'like', '%'.$keyword.'%')
+		->get();
+
+		$regency = Regency::where('name', 'like', '%'.$region.'%')->get();
+
+		$job = [];
+		foreach ($categoryJobs as $key => $value) {
+			$job[] = $value->name;
+		}
+
+		$r = [];
+		foreach ($regency as $key => $value) {
+			$r[] = $value->id;
+		}
+
+		$user = User::whereIn('users.regency_id', $r)
+				->leftJoin('profesional_titles', 'users.id', '=', 'profesional_titles.user_id')
+				->whereIn('profesional_titles.title', $job)
+				->get();
+
+		return view('search_user')->with('users', $user)->with('religion', $religion)->with('region', $region)->with('keyword', $keyword);
 	}
 
 	public function profile_edit()
@@ -103,6 +138,8 @@ class UserController extends Controller
 		$district = District::where('regency_id', $user->regency_id)->get();
 		$filters = FilterUserValue::where('user_id', $user->id)->get();
 		$parent_filters = FilterUser::where('parent_id', 0)->get();
+		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
+
 		return view('user/edit_profile')
 			->with('user', $user)
 			->with('provinces', $province)
@@ -111,17 +148,20 @@ class UserController extends Controller
 			->with('menu', 'profile')
 			->with('parent_filters', $parent_filters)
 			->with('filters', $filters)
+			->with('religion', $religion)
 			->with('districts', $district);
 	}
 
 	public function save_edit(Request $request)
-	{
+	{		
+		$gender = isset($request->gender) ? $request->gender : 0;
 		$user = Auth::user();
 		$user->first_name = $request->first_name;
 		$user->last_name = $request->last_name;
 		//$user->user_id = $request->user_id;
 		$user->profession = $request->profession;
 		$user->bio = $request->bio;
+		$user->gender = $request->gender;
 		$user->province_id = $request->province_id;
 		$user->phone = $request->phone;
 		$user->regency_id = $request->regency_id;
@@ -129,7 +169,17 @@ class UserController extends Controller
 		$user->addreess = $request->addreess;
 		$user->longitude = $request->long;
 		$user->latitude = $request->lat;
+		$user->religion = $request->religion;
+		$user->tribe = $request->tribe;
 		$user->save();
+
+		$tribe = Tribe::where(DB::raw('upper(name)'),  strtolower($request->tribe))->first();
+		if(! $tribe)
+		{
+			$tribe = new Tribe;
+			$tribe->name = strtolower($request->tribe);
+			$tribe->save();
+		}
 
 		DB::table('profesional_titles')->where('user_id', $user->id)->delete();
 		foreach ($request->title as $key => $value) {
