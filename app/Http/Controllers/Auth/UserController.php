@@ -90,7 +90,8 @@ class UserController extends Controller
 			$r[] = $value->id;
 		}
 
-		$user = User::whereIn('users.regency_id', $r)
+		$user = User::select('users.*')
+				->whereIn('users.regency_id', $r)
 				->leftJoin('profesional_titles', 'users.id', '=', 'profesional_titles.user_id')
 				->whereIn('profesional_titles.title', $job)
 				->get();
@@ -121,7 +122,8 @@ class UserController extends Controller
 			$r[] = $value->id;
 		}
 
-		$user = User::whereIn('users.regency_id', $r)
+		$user = User::select('users.*')
+				->whereIn('users.regency_id', $r)
 				->leftJoin('profesional_titles', 'users.id', '=', 'profesional_titles.user_id')
 				->whereIn('profesional_titles.title', $job)
 				->get();
