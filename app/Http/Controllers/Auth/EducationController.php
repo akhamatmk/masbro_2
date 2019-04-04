@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\EducationUser;
 use App\Models\School;
+use App\Group;
+use App\GroupUser;
 use Session;
 
 class EducationController extends Controller
@@ -44,6 +46,14 @@ class EducationController extends Controller
 			$school = new School;
 			$school->name = $request->school;
 			$school->save();
+		}
+
+		$group = Group::where('name', $request->school)->first();
+		if($group)
+		{
+			$GroupUser = GroupUser::where('group_id', $group->id)->where('user_id', Auth::user()->id)->first();
+			if(! $GroupUser)
+				$group->users()->attach([Auth::user()->id]);
 		}
 		
 		Session::flash('message-succes', 'Succes Save Data'); 

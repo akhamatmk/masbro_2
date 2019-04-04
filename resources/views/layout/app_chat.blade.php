@@ -1,33 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 <head>
-     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
-    <meta name="description" content="Masbro : Cari kerja semudah yang anda bayangkan" />
-    <meta property="og:image" content="{{ asset('social-image.png')}} " />
-    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- FAVICONS ICON -->
     <link rel="icon" href="https://s3.ap-south-1.amazonaws.com/dzon-html/job-board/xhtml/images/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}" />
     
     <!-- PAGE TITLE HERE -->
     <title>Masbro : Cari kerja semudah yang anda bayangkan</title>
-    
-    <!-- MOBILE SPECIFIC -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <!-- [if lt IE 9]> -->
-    <script src="{{ asset('js/html5shiv.min.js')}}"></script>
-    <script src="{{ asset('js/respond.min.js')}}"></script>
-    <!-- <![endif] -->
-    
-    <!-- STYLESHEETS -->
+
+      <!-- STYLESHEETS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/templete.css')}}">
@@ -78,16 +66,15 @@
 
     </style>
 
+    <!-- Styles -->
+    <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/web2.css') }}" rel="stylesheet">
 </head>
-<body id="bg">
-
-<div class="page-wraper">
-    @include('layout.menu')
-
-    @yield('content')
-    <!-- Footer -->
-
-
+<body>
+    <div id="app">
+        @include('layout.menu')
+        @yield('content')
+         <!-- Footer -->
     <div class="margin-footer hidden-md-up"></div>
 
     <div class="footer hidden-md-up">
@@ -126,37 +113,9 @@
     <!-- Footer END -->
     <!-- scroll top button -->
     <button class="scroltop fa fa-arrow-up" ></button>
-</div>
+    </div>
 
-<!-- JAVASCRIPT FILES ========================================= -->
-<script src="{{ asset('js/jquery.min.js')}} "></script><!-- JQUERY.MIN JS -->
-<script src="{{ asset('plugins/wow/wow.js')}} "></script><!-- WOW JS -->
-<script src="{{ asset('plugins/bootstrap/js/popper.min.js')}} "></script><!-- BOOTSTRAP.MIN JS -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js')}} "></script><!-- BOOTSTRAP.MIN JS -->
-<script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js')}} "></script><!-- FORM JS -->
-<script src="{{ asset('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js')}} "></script><!-- FORM JS -->
-<script src="{{ asset('plugins/magnific-popup/magnific-popup.js')}} "></script><!-- MAGNIFIC POPUP JS -->
-<script src="{{ asset('plugins/counter/waypoints-min.js')}} "></script><!-- WAYPOINTS JS -->
-<script src="{{ asset('plugins/counter/counterup.min.js')}} "></script><!-- COUNTERUP JS -->
-<script src="{{ asset('plugins/imagesloaded/imagesloaded.js')}} "></script><!-- IMAGESLOADED -->
-<script src="{{ asset('plugins/masonry/masonry-3.1.4.js')}} "></script><!-- MASONRY -->
-<script src="{{ asset('plugins/masonry/masonry.filter.js')}} "></script><!-- MASONRY -->
-<script src="{{ asset('plugins/owl-carousel/owl.carousel.js')}} "></script><!-- OWL SLIDER -->
-<script src="{{ asset('plugins/rangeslider/rangeslider.js')}} " ></script><!-- Rangeslider -->
-<script src="{{ asset('js/custom.js')}} "></script><!-- CUSTOM FUCTIONS  -->
-<script src="{{ asset('js/dz.carousel.js')}} "></script><!-- SORTCODE FUCTIONS  -->
-<script src="{{ asset('recaptcha/api.js')}} "></script> <!-- Google API For Recaptcha  -->
-<script src="{{ asset('js/dz.ajax.js')}} "></script><!-- CONTACT JS  -->
-<script src="{{ asset('plugins/paroller/skrollr.min.js')}} "></script><!-- PAROLLER -->
-<script src="{{ asset('js/dropify.js')}} "></script><!-- PAROLLER -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js"></script> -->
-<!-- <script src="{{ asset('js/datetimepicker.js')}}"></script> -->
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-
-
-
-@yield('js')
-
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
 </html>

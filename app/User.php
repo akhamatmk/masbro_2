@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Regency::class, 'id', 'regency_id');
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class)->withTimestamps();
+    }
 }

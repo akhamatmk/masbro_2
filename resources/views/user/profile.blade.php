@@ -152,19 +152,20 @@
             <li>
               <div class="clearfix">
                 <div style="float: left; width: 75%">
-                  <h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3>
+                  <a href="{{ url('check/chat/school?school='.$education->school) }}"><h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3></a>
                 </div>
 
                 <div style="float: right; width: 20%">
                   <a href="{{ url('education/edit/'.$education->id) }}"><img width="25px" src="{{ asset('images/edit.png') }}"></a>
-                  <a style="cursor: pointer;" class="deleteEducation" data-id="{{ $education->id }}"><img width="25px" src="{{ asset('images/remove.png') }}"></a>
+                  <a style="cursor: pointer;" class="deleteEducation" data-id="{{ $education->id }}">
+                    <img width="25px" src="{{ asset('images/remove.png') }}"></a>
                 </div>
               </div>
-
-               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                  <span class="visually-hidden">{{ $education->degree }} , </span>
-                  <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
-               </p>
+                
+                 <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
+                    <span class="visually-hidden">{{ $education->degree }} , </span>
+                    <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
+                 </p>
                <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
                   <span class="visually-hidden">{{ $education->from }} - {{ $education->until }}</span>
                </p>

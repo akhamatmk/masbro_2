@@ -11,6 +11,11 @@
 |
 */
 
+// Route::get('/chat', 'ChatController@index');
+Route::get('/chat/group/{group_id}', 'ChatController@group')->middleware('auth');
+Route::resource('groups', 'GroupController')->middleware('auth');
+Route::resource('conversations', 'ConversationController')->middleware('auth');
+
 Route::get('tribes', 'TribeController@get');
 Route::post('importExcel', 'Backend\ProfesionController@import');
 Route::post('filter/get_node', 'Backend\FilterController@node');
@@ -64,11 +69,12 @@ Route::get('profesion/title', 'Auth\UserController@title');
 
 Route::get('location/region', 'LocationController@region');
 
+Route::get('check/chat/school', 'ChatController@check_school')->middleware('auth');
+
 Route::post('make/post', 'PostController@store')->middleware('auth');
 Route::post('forgot-password', 'Auth\LoginController@forgotPassword');
 Route::get('reset/password/{token}/{email}', 'Auth\LoginController@resetPassword');
 Route::post('reset/password', 'Auth\LoginController@setNewPassword');
-
 
 Route::get('home', 'HomeController@index')->name('home');
 
