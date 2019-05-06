@@ -49,12 +49,23 @@
             <div class="row">
                 <div class="col-md-7 col-lg-9" style="box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);">
                     @if(Session::has('message-succes'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" style="margin-top: 10px">
                         <ul>
                             <li>{{ Session::get('message-succes') }}</li>
                         </ul>
                     </div>
                     @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger" style="margin-top: 10px">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form method="POST" style="margin-top: 10px" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

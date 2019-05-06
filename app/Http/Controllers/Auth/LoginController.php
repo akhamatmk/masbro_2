@@ -124,10 +124,10 @@ class LoginController extends Controller
 
                $user = new User;
                $user->email = $dataProvider->email;
-               $user->first_name = $name[0];
-               $user->last_name = $name[$maxName-1];
+               //$user->first_name = $name[0];
+               //$user->last_name = $name[$maxName-1];
                $user->name = $dataProvider->name;
-               $user->profile_image = $filename;
+               //$user->profile_image = $filename;
                $user->password = 'admin123';
                $user->save();
 

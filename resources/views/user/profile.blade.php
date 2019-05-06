@@ -163,11 +163,19 @@
               </div>
                 
                  <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                    <span class="visually-hidden">{{ $education->degree }} , </span>
+                    <span class="visually-hidden">{{ $education->degree }}  
+                      @if(strlen($education->field_of_study) > 0)
+                      ,
+                      @endIf
+                    </span>
                     <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
                  </p>
                <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                  <span class="visually-hidden">{{ $education->from }} - {{ $education->until }}</span>
+                  <span class="visually-hidden">{{ $education->from }} 
+                    @if(strlen($education->until) > 0)
+                      -
+                    @endIf
+                    {{ $education->until }}</span>
                </p>
             </li>
             <hr/>

@@ -85,6 +85,7 @@
     @include('layout.menu')
 
     @yield('content')
+    @include('chat-widget')
     <!-- Footer -->
 
 

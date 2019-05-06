@@ -31,6 +31,10 @@ class EducationController extends Controller
 
 	public function store(Request $request)
 	{
+		$validatedData = $request->validate([
+        	'school' => 'required',
+    	]);
+
 		$educationUser = new EducationUser;
 		$educationUser->user_id = Auth::user()->id;
 		$educationUser->school = $request->school;

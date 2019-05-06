@@ -73,7 +73,7 @@
 <body>
     <div id="app">
         @include('layout.menu')
-        @yield('content')
+        @yield('content')        
          <!-- Footer -->
     <div class="margin-footer hidden-md-up"></div>
 
