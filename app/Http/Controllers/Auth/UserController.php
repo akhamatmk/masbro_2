@@ -73,6 +73,9 @@ class UserController extends Controller
 	{
 		$keyword = strtolower($request->keyword);
 		$region = strtolower($request->region);
+		$religion = $request->religion;
+		$tribe = isset($request->tribe) ? $request->tribe : null;
+		$gender = isset($request->gender) ? $request->gender : null;
 		$categoryJobs = CategoryJobs::select('name')		
 		->where('name', 'like', '%'.$keyword.'%')
 		->orWhere('meta_search', 'like', '%'.$keyword.'%')
@@ -90,13 +93,22 @@ class UserController extends Controller
 			$r[] = $value->id;
 		}
 
-		$user = User::select('users.*')
+		$user = User::select('users.*');
 				->whereIn('users.regency_id', $r)
 				->leftJoin('profesional_titles', 'users.id', '=', 'profesional_titles.user_id')
-				->whereIn('profesional_titles.title', $job)
-				->get();
+				->whereIn('profesional_titles.title', $job);
+		
+		if(isset($gender) && count($gender) > 0)
+			$user->whereIn('users.gender', $gender);
 
-    	$html = view('ajax_search_people')->with(['users' => $user])->render();
+		if($religion != 0)
+			$user->where('users.religion', $religion);
+
+		if(isset($tribe) && strlen($tribe) > 0)
+			$user->where('users.tribe', $tribe);
+
+		$result = $user->get();
+    	$html = view('ajax_search_people')->with(['users' => $result])->render();
         return response()->json(['html' => $html]);
 	}
 
@@ -104,7 +116,7 @@ class UserController extends Controller
 	{
 		$keyword = strtolower($request->keyword);
 		$region = strtolower($request->region);
-		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
+		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Kristen Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
 		$categoryJobs = CategoryJobs::select('name')		
 		->where('name', 'like', '%'.$keyword.'%')
 		->orWhere('meta_search', 'like', '%'.$keyword.'%')
@@ -140,7 +152,7 @@ class UserController extends Controller
 		$district = District::where('regency_id', $user->regency_id)->get();
 		$filters = FilterUserValue::where('user_id', $user->id)->get();
 		$parent_filters = FilterUser::where('parent_id', 0)->get();
-		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
+		$religion = ['Silahkan Pilih', 'Islam', 'Kristen Protestan', 'Kristen Katolik', 'Hindu', 'Buddha', 'Kong Hu Cu'];
 
 		return view('user/edit_profile')
 			->with('user', $user)

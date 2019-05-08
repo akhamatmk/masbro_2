@@ -63,7 +63,7 @@ Route::post('upload/image/gallery', 'UploadImageController@gallery')->middleware
 
 Route::get('search/school', 'Auth\EducationController@school');
 
-Route::post('search/people/job', 'Auth\UserController@people_job');
+Route::get('search/people/job', 'Auth\UserController@people_job');
 Route::post('ajax/search/people', 'Auth\UserController@ajax_search_people');
 Route::get('profesion/title', 'Auth\UserController@title');
 

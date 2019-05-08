@@ -193,9 +193,9 @@
                                         <textarea name="addreess" id="addreess" class="form-control" placeholder="Alamat">{{ $user->addreess }}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Maps</label><br/><br/>
+                                        <label>Maps</label><br/><br/><br/>
                                         <input id="pac-input" class="controls" type="text" placeholder="Search Box" style="left : 0; width: 70%; margin-top: 7px;">
-                                        <div id="mapGoogle" style="osition: relative; overflow: hidden; height: 300px; margin-top: -30px; z-index: 0;"></div>
+                                        <div id="mapGoogle" style="position: relative; overflow: hidden; height: 300px; margin-top: -30px; z-index: 0;"></div>
                                         <input type="hidden" name="long" id="long" value="{{ $user->longitude }}">
                                         <input type="hidden" name="lat" id="lat" value="{{ $user->latitude }}">
                                     </div>
@@ -370,7 +370,7 @@
     }    
 </script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR7DFQIBGumoziD6B6a0n2EZgrKhQOWS4&callback=initMap&libraries=places"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnZzL7MbCVrAo2sYaF8kSQBq0OmEmCZS8&callback=initMap&libraries=places"></script>
 <script type="text/javascript">
     $(function() {
     	$('.dropify').dropify();

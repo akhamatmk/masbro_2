@@ -49,8 +49,7 @@
         <div class="dez-bnr-inr-entry align-m ">
             <div class="find-job-bx">
                 <h3>Rekrut Pekerja untuk segala kebutuhan anda</h3>
-                <form class="dezPlaceAni" action="{{ URL('search/people/job') }}" method="POST">
-                    @csrf
+                <form class="dezPlaceAni" action="{{ URL('search/people/job') }}" method="GET">
                     <div class="row">
                         <div class="col-lg-5 col-md-6">
                             <div class="form-group">

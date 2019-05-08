@@ -126,63 +126,7 @@
         @include('layout/gallery')
       </div>
     </div>
-
-   <div class="row" style="margin-top: 10px">
-      <div class="col-sm-8 col-12 main-section">
-         <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">
-            <div style="width: 70%; float: left;">
-               <h3 class="col-md-10" style="    margin: -10px;"> Education </h3>
-            </div>
-            <div style="width: 20%; float: right;">
-               <a href="{{ url('education/create') }}" id="ember155">
-                  <span class="svg-icon-wrap">
-                     <li-icon aria-hidden="true" type="plus-icon">
-                        <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
-                           <path d="M21,13H13v8H11V13H3V11h8V3h2v8h8v2Z" class="large-icon" style="fill: currentColor"></path>
-                        </svg>
-                     </li-icon>
-                  </span>
-               </a>
-            </div>
-         </div>
-         <div class="clearfix visible-xs"></div>
-         <br/>
-         <ul style="list-style: none;">
-            @foreach($educations as $education)
-            <li>
-              <div class="clearfix">
-                <div style="float: left; width: 75%">
-                  <a href="{{ url('check/chat/school?school='.$education->school) }}"><h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3></a>
-                </div>
-
-                <div style="float: right; width: 20%">
-                  <a href="{{ url('education/edit/'.$education->id) }}"><img width="25px" src="{{ asset('images/edit.png') }}"></a>
-                  <a style="cursor: pointer;" class="deleteEducation" data-id="{{ $education->id }}">
-                    <img width="25px" src="{{ asset('images/remove.png') }}"></a>
-                </div>
-              </div>
-                
-                 <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                    <span class="visually-hidden">{{ $education->degree }}  
-                      @if(strlen($education->field_of_study) > 0)
-                      ,
-                      @endIf
-                    </span>
-                    <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
-                 </p>
-               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                  <span class="visually-hidden">{{ $education->from }} 
-                    @if(strlen($education->until) > 0)
-                      -
-                    @endIf
-                    {{ $education->until }}</span>
-               </p>
-            </li>
-            <hr/>
-            @endForeach
-         </ul>
-      </div>
-   </div>
+   
    <div class="row">
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">
@@ -242,6 +186,64 @@
          </ul>
       </div>
    </div>
+
+   <div class="row" style="margin-top: 10px">
+      <div class="col-sm-8 col-12 main-section">
+         <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">
+            <div style="width: 70%; float: left;">
+               <h3 class="col-md-10" style="    margin: -10px;"> Education </h3>
+            </div>
+            <div style="width: 20%; float: right;">
+               <a href="{{ url('education/create') }}" id="ember155">
+                  <span class="svg-icon-wrap">
+                     <li-icon aria-hidden="true" type="plus-icon">
+                        <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false">
+                           <path d="M21,13H13v8H11V13H3V11h8V3h2v8h8v2Z" class="large-icon" style="fill: currentColor"></path>
+                        </svg>
+                     </li-icon>
+                  </span>
+               </a>
+            </div>
+         </div>
+         <div class="clearfix visible-xs"></div>
+         <br/>
+         <ul style="list-style: none;">
+            @foreach($educations as $education)
+            <li>
+              <div class="clearfix">
+                <div style="float: left; width: 75%">
+                  <a href="{{ url('check/chat/school?school='.$education->school) }}"><h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3></a>
+                </div>
+
+                <div style="float: right; width: 20%">
+                  <a href="{{ url('education/edit/'.$education->id) }}"><img width="25px" src="{{ asset('images/edit.png') }}"></a>
+                  <a style="cursor: pointer;" class="deleteEducation" data-id="{{ $education->id }}">
+                    <img width="25px" src="{{ asset('images/remove.png') }}"></a>
+                </div>
+              </div>
+                
+                 <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
+                    <span class="visually-hidden">{{ $education->degree }}  
+                      @if(strlen($education->field_of_study) > 0)
+                      ,
+                      @endIf
+                    </span>
+                    <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
+                 </p>
+               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
+                  <span class="visually-hidden">{{ $education->from }} 
+                    @if(strlen($education->until) > 0)
+                      -
+                    @endIf
+                    {{ $education->until }}</span>
+               </p>
+            </li>
+            <hr/>
+            @endForeach
+         </ul>
+      </div>
+   </div>
+
    <div class="row">
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">

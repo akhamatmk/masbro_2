@@ -146,7 +146,7 @@
 <script src="{{ asset('plugins/rangeslider/rangeslider.js')}} " ></script><!-- Rangeslider -->
 <script src="{{ asset('js/custom.js')}} "></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{ asset('js/dz.carousel.js')}} "></script><!-- SORTCODE FUCTIONS  -->
-<script src="{{ asset('recaptcha/api.js')}} "></script> <!-- Google API For Recaptcha  -->
+<!-- <script src="{{ asset('recaptcha/api.js')}} "></script> --> <!-- Google API For Recaptcha  -->
 <script src="{{ asset('js/dz.ajax.js')}} "></script><!-- CONTACT JS  -->
 <script src="{{ asset('plugins/paroller/skrollr.min.js')}} "></script><!-- PAROLLER -->
 <script src="{{ asset('js/dropify.js')}} "></script><!-- PAROLLER -->

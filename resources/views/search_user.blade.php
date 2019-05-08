@@ -25,11 +25,11 @@
     font-size: 20px;
     line-height: 26px;
     }
-    .radio input[type="radio"] + label {
+    .radio input[type="checkbox"] + label {
     color: grey;
     position: relative;
     }
-    .radio input[type="radio"] + label::before {
+    .radio input[type="checkbox"] + label::before {
     /* Outer Circle of radio button */
     border: 1px solid grey;
     content: ' ';
@@ -40,7 +40,7 @@
     border-radius: 50%;
     transition: border 0.15s ease-in-out;
     }
-    .radio input[type="radio"] + label::after {
+    .radio input[type="checkbox"] + label::after {
     /* Inner Circle of radio button */
     border: 0px solid orange;
     content: ' ';
@@ -55,17 +55,17 @@
     top: 7px;
     transition: border 0.15s ease-in-out;
     }
-    input[type="radio"] {
+    input[type="checkbox"] {
     display: none;
     }
     /* When button is active */
-    .radio input[type="radio"]:checked + label::after {
+    .radio input[type="checkbox"]:checked + label::after {
     background: orange;
     }
-    .radio input[type="radio"]:checked + label::before {
+    .radio input[type="checkbox"]:checked + label::before {
     border-color: orange;
     }
-    .radio input[type="radio"]:checked + label {
+    .radio input[type="checkbox"]:checked + label {
     color: orange;
     }
     .autocomplete {
@@ -123,6 +123,7 @@
     left: 25px;
     position: absolute;
     padding-right: 23px; }
+
     /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -166,14 +167,16 @@
     <div class="section-full bg-white submit-resume content-inner-2" style="padding-top: 35px; padding-bottom: 20px;">
         <div class="container" style="min-height: 600px;">
             <div class="row" id="filter" style="min-height: 100px; background-color: #fbfbfb; border-radius: 5px; display: none">
-                <form method="POST" style="margin-top: 10px; width: 99%;" id="myform">
+                <form method="GET" style="margin-top: 10px; width: 99%;" id="myform">
                     <div style="padding: 20px;">
                         <div class="form-group">
                             <label>Gender</label>
                             <div class="radio row" style="margin-left: 20px">
-                                <input id="sex-male" type="radio" name="gender" value="1"/>
+                                <input type="hidden" name="keyword" value="<?=$_GET['keyword']?>" >
+                                <input type="hidden" name="region" value="<?=$_GET['region']?>" >
+                                <input id="sex-male" type="checkbox" name="gender[]" value="1"/>
                                 <label for="sex-male">Pria</label>
-                                <input id="sex-female" type="radio" style="margin-left: 20px" name="gender" value="2" />
+                                <input id="sex-female" type="checkbox" style="margin-left: 20px" name="gender[]" value="2" />
                                 <label for="sex-female" style="margin-left: 20px">Wanita</label>
                             </div>
                         </div>
@@ -193,8 +196,6 @@
                             </select>
                         </div>
                         @csrf
-                        <input type="hidden" name="region" value="{{ $region }}" />
-                        <input type="hidden" name="keyword" value="{{ $keyword }}" />
                         <button type="button" class="site-button" style="margin: 10px;">Submit</button>
                     </div>
                 </form>
@@ -217,6 +218,10 @@
                     </div>
                 </div>
                 @endForeach
+            </div>
+
+            <div class="text-center" id="loader" style="display: none;">
+                <img src="{{ asset('images/25.gif') }}"  style="width:128px;height:128px;">
             </div>
         </div>
     </div>
@@ -263,6 +268,8 @@
         });
     
          $(".site-button").click(function(){
+            $("#people").html("");
+            $("#loader").show();
             $.ajax({
                 type: "POST",
                 url: '{{ URL::to("ajax/search/people") }}',
@@ -270,6 +277,7 @@
                 data: $('#myform').serialize(),
                 success: function(data){
                      $("#people").html(data.html);
+                     $("#loader").hide();
                      clicky();
                 }
             });
