@@ -21,7 +21,7 @@ class LocationController extends Controller
 	public function region(Request $request)
 	{
 		$text = strtolower($request->text);
-		$regency = Regency::select('name')->where('name', 'like', '%'.$text.'%')->groupBy('name')->limit(10)->get();
+		$regency = Regency::select('name', 'regencies.name as text')->where('name', 'like', '%'.$text.'%')->groupBy('name')->limit(10)->get();
 		return response()->json($regency);
 	}
 }

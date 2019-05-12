@@ -41,6 +41,37 @@
     .child-title{
         padding: 10px; border: 1px solid rgba(0,24,128,0.1); margin-top: 10px;
     }
+
+    .btn-group bootstrap-select{
+        display: none;
+    }
+
+    .select2-container--default .select2-selection--single{
+        border-radius: 0;
+        background-color: transparent;
+        border-width: 0 0 2px 0;
+        border-color: #2e55fa;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__placeholder{
+        color: black;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__rendered{
+        padding-top: 5px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        height: 50px;
+    }
+
+    .select2-container .select2-selection--single{
+        height: 50px;
+    }
+
+    ..select2-container--default .select2-selection--single .select2-selection__arrow{
+        top: 5px;
+    }
 </style>
 
 <!-- Section Banner -->
@@ -53,21 +84,18 @@
                     <div class="row">
                         <div class="col-lg-5 col-md-6">
                             <div class="form-group">
-                                <label>Ketik nama pekerjaan</label>
-                                <div class="autocomplete" >
-                                    <input id="title-1" type="text" data-id="1" name="keyword" autocomplete="off" class="form-control title">
-                                    <div id="myInputautocomplete-list-1" class="autocomplete-items"></div>
-                                </div>
+                                <select name="keyword" id="jobs_name"></select>
                             </div>
                         </div>
 
                         <div class="col-lg-5 col-md-6">
                             <div class="form-group">                                
-                                <label>Ketik kota, provinsi atau daerah</label>
+                                <!-- <label>Ketik kota, provinsi atau daerah</label>
                                 <div class="autocomplete" >
                                     <input id="title-0" type="text" data-id="0" name="region" autocomplete="off" class="form-control title">
                                     <div id="myInputautocomplete-list-0" class="autocomplete-items"></div>
-                                </div>
+                                </div> -->
+                                <select name="region" id="region"></select>
                             </div>
                         </div>
 
@@ -83,55 +111,45 @@
 <!-- Section Banner END -->
 @section('js')
 <script type="text/javascript">
-    function change_value(value, id)
-    {
-        $("#title-"+id).val(value);
-        $("#myInputautocomplete-list-"+id).html("");
-        $("#primary-title-"+id).val(value);
-        
-    }
-
-    function capitalize(s)
-    {
-        return s && s[0].toUpperCase() + s.slice(1);
-    }
-
     $(function() {
-        $("#myInputautocomplete-list").html("");
-        $(".title").keyup(function(){
-            let text = $(this).val();
-            let id = $(this).data('id');
-            var url = "";
-            
-            if(id == "1")
-            {
-                url = "{{ URL::to('profesion/title') }}";
-            }
-            else{
-                url = "{{ URL::to('location/region') }}";
-            }
-
-            $("#primary-title-"+id).val(text);
-            if(text.length == 0)
-            {
-                $("#myInputautocomplete-list-"+id).html("");
-            } else {
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    dataType: 'json',
-                    data: {
-                        text : text
-                    },
-                    success: function(data){
-                        $("#myInputautocomplete-list-"+id).html("");
-                        $.each(data , function(index, val) { 
-                            let temp = '<div class="autocomplete-value" onclick="change_value(\''+capitalize(val.name)+'\', '+id+')">'+capitalize(val.name)+'</div>';
-                            $("#myInputautocomplete-list-"+id).append(temp);
-                        });
+        $('#jobs_name').select2({
+            placeholder: "Ketik Nama Pekerjaan",
+            minimumInputLength: 1,
+            multiple: false,
+            width: 400,
+            ajax: {
+                url: "{{ URL::to('profesion/title') }}",
+                data: function (params) {
+                    var query = {
+                        text: params.term
                     }
-                });
-            }            
+
+                    return query;
+                },
+                processResults: function(data, page) {
+                    return { results: data };
+                },
+            }
+        });
+
+        $('#region').select2({
+            placeholder: "Ketik kota, provinsi atau daerah",
+            minimumInputLength: 1,
+            multiple: false,
+            width: 400,
+            ajax: {
+                url: "{{ URL::to('location/region') }}",
+                data: function (params) {
+                    var query = {
+                        text: params.term
+                    }
+
+                    return query;
+                },
+                processResults: function(data, page) {
+                    return { results: data };
+                },
+            }
         });
 
         $(".show_hidden").click(function(){

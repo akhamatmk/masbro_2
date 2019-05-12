@@ -42,6 +42,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dropify.css')}}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
     @yield('css')
     <!-- Revolution Navigation Style -->
 
@@ -146,13 +147,13 @@
 <script src="{{ asset('plugins/rangeslider/rangeslider.js')}} " ></script><!-- Rangeslider -->
 <script src="{{ asset('js/custom.js')}} "></script><!-- CUSTOM FUCTIONS  -->
 <script src="{{ asset('js/dz.carousel.js')}} "></script><!-- SORTCODE FUCTIONS  -->
-<!-- <script src="{{ asset('recaptcha/api.js')}} "></script> --> <!-- Google API For Recaptcha  -->
 <script src="{{ asset('js/dz.ajax.js')}} "></script><!-- CONTACT JS  -->
 <script src="{{ asset('plugins/paroller/skrollr.min.js')}} "></script><!-- PAROLLER -->
 <script src="{{ asset('js/dropify.js')}} "></script><!-- PAROLLER -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js"></script> -->
-<!-- <script src="{{ asset('js/datetimepicker.js')}}"></script> -->
+
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
 
 
 

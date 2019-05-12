@@ -94,30 +94,6 @@
          </div>
       </div>
    </div>
-   <div class="row" style="margin-top: 10px">
-      <div class="col-sm-8 col-12 main-section">
-         <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
-            <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Education </h3></div> 
-         </div>
-         <div class="clearfix visible-xs"></div><br/>
-        
-        <ul style="list-style: none;">
-           @foreach($educations as $education)
-            <li>
-               <h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3>
-               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                 <span class="visually-hidden">{{ $education->degree }} , </span>
-                 <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
-               </p>
-               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
-                 <span class="visually-hidden">{{ $education->from }} - {{ $education->until }}</span>
-               </p>
-            </li>
-            <hr/>
-           @endForeach
-        </ul>
-      </div>
-   </div>
    <div class="row">
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
@@ -154,6 +130,34 @@
         </ul>
       </div>
    </div>
+   <div class="row" style="margin-top: 10px">
+      <div class="col-sm-8 col-12 main-section">
+         <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
+            <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Education </h3></div> 
+         </div>
+         <div class="clearfix visible-xs"></div><br/>
+        
+        <ul style="list-style: none;">
+           @foreach($educations as $education)
+            <li>
+               <h3 class="pv-entity__school-name t-16 t-black t-bold" style="margin-bottom: -5px;">{{ $education->school }}</h3>
+               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
+                 <span class="visually-hidden">{{ $education->degree }} 
+                  @if(strlen($education->field_of_study) > 0)
+                      ,
+                  @endIf</span>
+                 <span class="pv-entity__comma-item">{{ $education->field_of_study }}</span>
+               </p>
+               <p class="pv-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title t-14 t-black t-normal">
+                 <span class="visually-hidden">{{ $education->from }} - {{ $education->until }}</span>
+               </p>
+            </li>
+            <hr/>
+           @endForeach
+        </ul>
+      </div>
+   </div>
+   
    <div class="row">
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
