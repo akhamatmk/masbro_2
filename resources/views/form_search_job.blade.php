@@ -89,12 +89,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6">
-                            <div class="form-group">                                
-                                <!-- <label>Ketik kota, provinsi atau daerah</label>
-                                <div class="autocomplete" >
-                                    <input id="title-0" type="text" data-id="0" name="region" autocomplete="off" class="form-control title">
-                                    <div id="myInputautocomplete-list-0" class="autocomplete-items"></div>
-                                </div> -->
+                            <div class="form-group">
                                 <select name="region" id="region"></select>
                             </div>
                         </div>
