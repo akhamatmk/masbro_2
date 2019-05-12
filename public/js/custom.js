@@ -411,16 +411,16 @@ var JobBoard = function(){
 		}	
 	}
 	
-	/* Counter Number ============ */
-	var counter = function(){
-		 if(jQuery('.counter').length)
-		{
-			jQuery('.counter').counterUp({
-				delay: 10,
-				time: 3000
-			});	
-		} 
-	}
+	// /* Counter Number ============ */
+	// var counter = function(){
+	// 	 if(jQuery('.counter').length)
+	// 	{
+	// 		jQuery('.counter').counterUp({
+	// 			delay: 10,
+	// 			time: 3000
+	// 		});	
+	// 	} 
+	// }
 	
 	/* Video Popup ============ */
 	var handleVideo = function(){
@@ -683,7 +683,7 @@ var JobBoard = function(){
 			handleBootstrapSelect();
 			handleBootstrapTouchSpin();
 			equalHeight('.equal-wraper .equal-col');
-			counter();
+			// counter();
 			masonryBox();
 			handleSupport();
 		},

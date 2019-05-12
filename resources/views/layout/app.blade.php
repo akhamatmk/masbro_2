@@ -139,7 +139,7 @@
 <script src="{{ asset('plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js')}} "></script><!-- FORM JS -->
 <script src="{{ asset('plugins/magnific-popup/magnific-popup.js')}} "></script><!-- MAGNIFIC POPUP JS -->
 <script src="{{ asset('plugins/counter/waypoints-min.js')}} "></script><!-- WAYPOINTS JS -->
-<script src="{{ asset('plugins/counter/counterup.min.js')}} "></script><!-- COUNTERUP JS -->
+<!-- <script src="{{ asset('plugins/counter/counterup.min.js')}} "></script><!-- COUNTERUP JS --> -->
 <script src="{{ asset('plugins/imagesloaded/imagesloaded.js')}} "></script><!-- IMAGESLOADED -->
 <script src="{{ asset('plugins/masonry/masonry-3.1.4.js')}} "></script><!-- MASONRY -->
 <script src="{{ asset('plugins/masonry/masonry.filter.js')}} "></script><!-- MASONRY -->
