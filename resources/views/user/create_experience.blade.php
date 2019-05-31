@@ -12,9 +12,9 @@
 			<div class="section-full bg-white submit-resume content-inner-2" style="padding-top: 35px; padding-bottom: 20px;">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-7 col-lg-9" style="box-shadow: 0 0 10px 0 rgba(0,24,128,0.1); margin-top: 10px">
+						<div class="col-md-7 col-lg-9" style="box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);">
 							 @if(Session::has('message-succes'))
-		                        <div class="alert alert-success">
+		                        <div class="alert alert-success" style="margin-top: 10px">
 		                             <ul>                                
 		                                 <li>{{ Session::get('message-succes') }}</li>
 		                             </ul>

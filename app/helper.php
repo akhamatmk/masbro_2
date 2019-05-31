@@ -54,3 +54,40 @@ function checkLike($user_id, $post_id)
 
     return 0;
 }
+
+function getLengthOfWork($experience = null)
+{
+    if($experience->currently == 1)
+    {
+        $month_until = (int) date('m');
+        $year_until = (int) date('Y');
+    } else {
+        $month_until = $experience->until_month;
+        $year_until = $experience->until_year;
+    }
+
+    $month_from = (int) $experience->from_month;
+    $year_from = (int) $experience->from_year;
+
+    if($year_from > $year_until)
+        return null;
+    else if($year_from < $year_until){
+        $month_until+=12;
+    }
+
+    if($month_until < $month_from)
+        return null;
+
+    $sum_month = $month_until - $month_from +24;
+    if($sum_month < 12)
+        return '( '.$sum_month.' Bulan)';
+
+    $year = (int) ($sum_month / 12 );
+    $month = $sum_month % 12;
+    $string= "( ".$year." Tahun";
+    if($month > 0)
+        $string.= " ".$month." Bulan";
+    $string.= " )";
+    
+    return $string;
+}

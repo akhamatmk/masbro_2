@@ -46,6 +46,10 @@
         display: none;
     }
 
+    .bootstrap-select{
+        display: none;
+    }
+
     .select2-container--default .select2-selection--single{
         border-radius: 0;
         background-color: transparent;

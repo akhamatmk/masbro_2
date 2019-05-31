@@ -47,4 +47,9 @@ class HomeController extends Controller
 		$posts = Post::with('gallery', 'user', 'comment')->orderBy('created_at', 'DESC')->get();
 		return view('timeline')->with('posts', $posts)->with('menu', 'timeline')->with('user', Auth::user());
 	}
+
+	public function test()
+	{
+		return view('text');	
+	}
 }

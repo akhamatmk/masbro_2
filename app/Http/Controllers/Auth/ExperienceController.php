@@ -50,7 +50,7 @@ class ExperienceController extends Controller
   		$experience->until_month = $request->until_month;
   		$experience->description = $request->description;
   		if(! isset($currently))
-  			$experience->description = 0;
+  			$experience->currently = 0;
 
 	  	$experience->save();
 		
@@ -90,10 +90,9 @@ class ExperienceController extends Controller
   		$experience->until_month = $request->until_month;
   		$experience->description = $request->description;
   		if(! isset($currently))
-  			$experience->description = 0;
-
+  			$experience->currently = 0;
+  		
 	  	$experience->save();
-		
 		Session::flash('message-succes', 'Succes Update Data'); 
         return redirect('experience/create');
 	}

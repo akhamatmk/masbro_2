@@ -11,7 +11,9 @@
 |
 */
 
-// Route::get('/chat', 'ChatController@index');
+Route::get('test', 'HomeController@test');
+
+Route::get('/chat', 'ChatController@index');
 Route::get('/chat/group/{group_id}', 'ChatController@group')->middleware('auth');
 Route::resource('groups', 'GroupController')->middleware('auth');
 Route::resource('conversations', 'ConversationController')->middleware('auth');
